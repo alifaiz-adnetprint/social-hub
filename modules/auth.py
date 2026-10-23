@@ -13,7 +13,11 @@ def get_supabase() -> Client:
 
 
 def get_current_user_profile() -> Optional[Dict[str, Any]]:
+<<<<<<< HEAD
     """Fetches user profile and linked brand details from user_profiles table."""
+=======
+    """Fetches user profile and linked brand details safely."""
+>>>>>>> 4a485fb (.)
     client = get_supabase()
     try:
         user_response = client.auth.get_user()
@@ -21,15 +25,48 @@ def get_current_user_profile() -> Optional[Dict[str, Any]]:
             return None
 
         user_id = user_response.user.id
+<<<<<<< HEAD
         res = (
             client.table("user_profiles")
             .select("*, brands(*)")
+=======
+        
+        # 1. Fetch user profile directly
+        res = (
+            client.table("user_profiles")
+            .select("*")
+>>>>>>> 4a485fb (.)
             .eq("id", user_id)
             .single()
             .execute()
         )
+<<<<<<< HEAD
         return res.data if res else None
     except Exception:
+=======
+        if not res or not res.data:
+            return None
+        
+        profile = res.data
+        
+        # 2. Attach brand details if a brand_id exists
+        brand_id = profile.get("brand_id")
+        if brand_id:
+            brand_res = (
+                client.table("brands")
+                .select("*")
+                .eq("id", brand_id)
+                .single()
+                .execute()
+            )
+            profile["brands"] = brand_res.data if brand_res else None
+        else:
+            profile["brands"] = None
+
+        return profile
+    except Exception as e:
+        st.sidebar.error(f"Auth error: {e}")
+>>>>>>> 4a485fb (.)
         return None
 
 
