@@ -1,5 +1,28 @@
+# Streamlit local configuration and credentials
 .streamlit/secrets.toml
-__pycache__/
-*.pyc
-.env
+
+# Python virtual environment
 venv/
+env/
+ENV/
+.venv/
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Operating System files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables & local logs
+.env
+*.log
