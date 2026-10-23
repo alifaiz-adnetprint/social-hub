@@ -405,27 +405,4 @@ def render_post_card(post: dict, brand: dict, admin_email: str):
                     if feedback.strip():
                         request_post_revision(post["id"], feedback)
                         email_revision_requested(
-                            admin_email=admin_email,
-                            brand_name=brand.get("name", "Brand"),
-                            platform=post.get("platform", "Instagram"),
-                            scheduled_date=date_str,
-                            feedback=feedback
-                        )
-                        st.success("Note sent to creative team!")
-                        st.rerun()
-
-        elif status == "approved":
-            st.button("📥 Download Source Assets", key=f"dl_{post['id']}", type="secondary", use_container_width=True)
-
-        elif status == "revision_requested":
-            st.markdown(
-                """
-                <div class="feedback-bubble">
-                    💬 <strong>Client Note:</strong> Please swap the primary font to bold
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown("<br>", unsafe_allow_html=True)
+                            admin
